@@ -75,12 +75,17 @@ if __name__ == "__main__":
         mlflow.log_metric("r2", r2)
         mlflow.log_metric("mae", mae)
 
-        predictions = lr.predict(train_x)
-        signature = infer_signature(train_x, predictions)
+        #predictions = lr.predict(train_x)
+        #signature = infer_signature(train_x, predictions)
+
+
+
+        import dagshub
+        dagshub.init(repo_owner='sagarbhagwatkar99', repo_name='MLflowExp', mlflow=True)
 
         ## For Remote server only(DAGShub)
-
-        ##mlflow.set_tracking_uri(remote_server_uri)
+        remote_server_uri = "https://dagshub.com/sagarbhagwatkar99/MLflowExp.mlflow"
+        mlflow.set_tracking_uri(remote_server_uri)
 
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
 
