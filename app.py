@@ -56,6 +56,9 @@ if __name__ == "__main__":
     alpha = float(sys.argv[1]) if len(sys.argv) > 1 else 0.5
     l1_ratio = float(sys.argv[2]) if len(sys.argv) > 2 else 0.5
 
+    import dagshub
+    dagshub.init(repo_owner='sagarbhagwatkar99', repo_name='MLflowExp', mlflow=True)
+    
     with mlflow.start_run():
         lr = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, random_state=42)
         lr.fit(train_x, train_y)
@@ -81,6 +84,7 @@ if __name__ == "__main__":
         ## For Remote server only(DAGShub)
         remote_server_uri = "https://dagshub.com/sagarbhagwatkar99/MLflowExp.mlflow"
         mlflow.set_tracking_uri(remote_server_uri)
+      
 
         tracking_url_type_store = urlparse(mlflow.get_tracking_uri()).scheme
 
